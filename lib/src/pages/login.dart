@@ -36,8 +36,8 @@ class Login extends StatelessWidget {
               TextButton(
                   onPressed: () {},
                   style: ButtonStyle(
-                      padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: 50, vertical: 10)),
+                      padding: MaterialStateProperty.all(EdgeInsets.symmetric(
+                          horizontal: size.height * 0.13, vertical: 10)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20))),
                       backgroundColor:
