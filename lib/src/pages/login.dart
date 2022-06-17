@@ -1,3 +1,5 @@
+//import 'dart:js';
+
 import 'package:flutter/material.dart';
 
 class Login extends StatelessWidget {
@@ -8,7 +10,7 @@ class Login extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Column(
-        children: [logo(size), signIn(size), signUp(size)],
+        children: [logo(size), signIn(size, context), signUp(size)],
       ),
     );
   }
@@ -23,7 +25,7 @@ class Login extends StatelessWidget {
     );
   }
 
-  Widget signIn(Size size) {
+  Widget signIn(Size size, BuildContext context) {
     return Container(
       width: size.width,
       height: size.height * 0.3,
@@ -81,7 +83,9 @@ class Login extends StatelessWidget {
                     ],
                   )),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'signup');
+                  },
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(
                           EdgeInsets.symmetric(horizontal: 40, vertical: 10)),
