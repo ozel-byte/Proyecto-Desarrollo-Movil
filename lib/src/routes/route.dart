@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyectocorte3/src/pages/login.dart';
+import 'package:proyectocorte3/src/pages/signup.dart';
 
 class RoutePage extends StatelessWidget {
   const RoutePage({Key? key}) : super(key: key);
@@ -9,7 +10,7 @@ class RoutePage extends StatelessWidget {
     return MaterialApp(
       title: 'Material App',
       debugShowCheckedModeBanner: false,
-      routes: {"/": (_) => const Login()},
+      routes: {"/": (_) => Login(), "signup": (context) => signup()},
     );
   }
 }
