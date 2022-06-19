@@ -10,6 +10,7 @@ class signup extends StatefulWidget {
 
 class _signupState extends State<signup> {
   final GlobalKey<FormState> _formKey = GlobalKey();
+  var height, width, size;
 
   void _saveForm() {
     final bool isValid = _formKey.currentState!.validate();
@@ -23,6 +24,10 @@ class _signupState extends State<signup> {
   bool value = false;
   @override
   Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: titulo(),
@@ -43,14 +48,17 @@ class _signupState extends State<signup> {
     return Image.asset(
       'assets/B5.png',
       fit: BoxFit.contain,
-      height: 60,
+      height: height / 15,
     );
   }
 
   Widget formulario() {
     return Padding(
-      padding: const EdgeInsets.only(
-          left: 30.0, top: 30.0, right: 30.0, bottom: 10.0),
+      padding: EdgeInsets.only(
+          left: width * 0.07,
+          top: height * 0.04,
+          right: width * 0.07,
+          bottom: height * 0.01),
       child: form(),
     );
   }
@@ -62,34 +70,34 @@ class _signupState extends State<signup> {
         children: [
           etiquetaTexto("Crea una cuenta para empezar a usar la app", 15.0,
               FontWeight.bold, Colors.black54),
-          const SizedBox(
-            height: 38,
+          SizedBox(
+            height: height * 0.058,
           ),
           etiquetaIzquierda("Nombre"),
           campoNombre(),
-          const SizedBox(
-            height: 25,
+          SizedBox(
+            height: height * 0.04,
           ),
           etiquetaIzquierda("Correo electrónico"),
           campoCorreo(),
-          const SizedBox(
-            height: 25,
+          SizedBox(
+            height: height * 0.04,
           ),
           etiquetaIzquierda("Contraseña"),
           campoPassword(),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: height * 0.015,
           ),
           Container(
-            padding: EdgeInsets.only(left: 20.0),
+            padding: EdgeInsets.only(left: width * 0.05),
             child: etiquetaTexto(
                 "La contraseña debe contener caracteres, números y símbolos\ncon un minimo de 6 caracteres.",
                 12.0,
                 FontWeight.normal,
                 Colors.black26),
           ),
-          const SizedBox(
-            height: 12,
+          SizedBox(
+            height: height * 0.015,
           ),
           Row(
             children: [
@@ -97,8 +105,8 @@ class _signupState extends State<signup> {
               terminosCondiciones(),
             ],
           ),
-          const SizedBox(
-            height: 35,
+          SizedBox(
+            height: height * 0.06,
           ),
           botonCrearCuenta(),
           Center(
@@ -112,44 +120,48 @@ class _signupState extends State<signup> {
   Widget campoNombre() {
     return TextFormField(
       validator: (value) {},
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
           hintText: 'Nombre completo',
           hintStyle: TextStyle(color: Colors.black26),
           border: OutlineInputBorder(),
           errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red, width: 5))),
+              borderSide: BorderSide(color: Colors.red, width: width * 0.015))),
     );
   }
 
   Widget campoCorreo() {
     return TextFormField(
       validator: (value) {},
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
           hintText: 'Direccion de correo',
           hintStyle: TextStyle(color: Colors.black26),
           border: OutlineInputBorder(),
           errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red, width: 5))),
+              borderSide: BorderSide(color: Colors.red, width: width * 0.015))),
     );
   }
 
   Widget campoPassword() {
     return TextFormField(
       validator: (value) {},
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
           hintText: 'Contraseña',
           hintStyle: TextStyle(color: Colors.black26),
           border: OutlineInputBorder(),
           errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red, width: 5))),
+              borderSide: BorderSide(color: Colors.red, width: width * 0.015))),
     );
   }
 
   Widget botonCrearCuenta() {
     return ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          print(height);
+          print(width);
+        },
         style: TextButton.styleFrom(
-          padding: EdgeInsets.symmetric(horizontal: 110.0, vertical: 12),
+          padding: EdgeInsets.symmetric(
+              horizontal: width * 0.3, vertical: width * 0.03),
           primary: Colors.white,
           backgroundColor: Colors.green,
           elevation: 3,
@@ -189,7 +201,7 @@ class _signupState extends State<signup> {
 
   Widget terminosCondiciones() {
     return Container(
-      width: 300,
+      width: width * 0.73,
       alignment: Alignment.centerLeft,
       child: msjTerminosCondiciones(),
     );
