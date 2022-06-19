@@ -49,7 +49,8 @@ class _signupState extends State<signup> {
 
   Widget formulario() {
     return Padding(
-      padding: const EdgeInsets.all(30.0),
+      padding: const EdgeInsets.only(
+          left: 30.0, top: 30.0, right: 30.0, bottom: 10.0),
       child: form(),
     );
   }
@@ -76,15 +77,19 @@ class _signupState extends State<signup> {
           ),
           etiquetaIzquierda("Contraseña"),
           campoPassword(),
+          const SizedBox(
+            height: 10,
+          ),
           Container(
+            padding: EdgeInsets.only(left: 20.0),
             child: etiquetaTexto(
-                "La contraseña debe contener caracteres, números y símboloes \n con u minimo de 6 caracteres.",
+                "La contraseña debe contener caracteres, números y símbolos\ncon un minimo de 6 caracteres.",
                 12.0,
                 FontWeight.normal,
                 Colors.black26),
           ),
           const SizedBox(
-            height: 25,
+            height: 12,
           ),
           Row(
             children: [
@@ -93,7 +98,7 @@ class _signupState extends State<signup> {
             ],
           ),
           const SizedBox(
-            height: 0,
+            height: 35,
           ),
           botonCrearCuenta(),
           Center(
@@ -144,12 +149,13 @@ class _signupState extends State<signup> {
     return ElevatedButton(
         onPressed: () {},
         style: TextButton.styleFrom(
-            primary: Colors.white,
-            backgroundColor: Colors.green,
-            elevation: 3,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0)),
-            minimumSize: Size(300, 50)),
+          padding: EdgeInsets.symmetric(horizontal: 110.0, vertical: 12),
+          primary: Colors.white,
+          backgroundColor: Colors.green,
+          elevation: 3,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+        ),
         child: Text(
           "Crear Cuenta",
           style: TextStyle(fontSize: 18),
@@ -208,6 +214,7 @@ class _signupState extends State<signup> {
 
   Widget checkBox() {
     return Checkbox(
+      shape: CircleBorder(),
       value: this.value,
       onChanged: (bool? value) {
         setState(() {
@@ -225,14 +232,14 @@ class _signupState extends State<signup> {
           children: [
             etiquetaTexto("Al registrarme, acepto los ", fontSize,
                 FontWeight.normal, Colors.black),
-            etiquetaTexto("términos y condicionbes ", fontSize,
+            etiquetaTexto("términos y condiciones ", fontSize,
                 FontWeight.normal, Colors.red),
           ],
         ),
         Row(
           children: [
             etiquetaTexto("y la ", fontSize, FontWeight.normal, Colors.black),
-            etiquetaTexto("policica de privacidad ", fontSize,
+            etiquetaTexto("politica de privacidad ", fontSize,
                 FontWeight.normal, Colors.red),
           ],
         )
