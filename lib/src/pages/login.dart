@@ -1,9 +1,17 @@
 //import 'dart:js';
 
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final databaseReference = FirebaseDatabase.instance.ref("personas");
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +19,14 @@ class Login extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [logo(size), signIn(size, context), signUp(size)],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // print("object");
+          // databaseReference
+          //     .set({"title": "ozel", "description": "hola soy german"});
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
@@ -39,7 +55,7 @@ class Login extends StatelessWidget {
                   onPressed: () {},
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(EdgeInsets.symmetric(
-                          horizontal: size.height * 0.13, vertical: 10)),
+                          horizontal: size.height * 0.09, vertical: 10)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20))),
                       backgroundColor:
@@ -59,8 +75,8 @@ class Login extends StatelessWidget {
               TextButton(
                   onPressed: () {},
                   style: ButtonStyle(
-                      padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: 40, vertical: 10)),
+                      padding: MaterialStateProperty.all(EdgeInsets.symmetric(
+                          horizontal: size.height * 0.08, vertical: 10)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           side: BorderSide(color: Color(0xff65676F)),
                           borderRadius: BorderRadius.circular(20))),
@@ -87,8 +103,8 @@ class Login extends StatelessWidget {
                     Navigator.pushNamed(context, 'signup');
                   },
                   style: ButtonStyle(
-                      padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: 40, vertical: 10)),
+                      padding: MaterialStateProperty.all(EdgeInsets.symmetric(
+                          horizontal: size.height * 0.085, vertical: 10)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           side: BorderSide(color: Color(0xff65676F)),
                           borderRadius: BorderRadius.circular(20)))),
