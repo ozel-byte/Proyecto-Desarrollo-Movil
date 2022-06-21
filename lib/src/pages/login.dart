@@ -150,9 +150,12 @@ class _LoginState extends State<Login> {
               SizedBox(
                 width: 10,
               ),
-              Text(
-                "Iniciar sesion",
-                style: TextStyle(color: Colors.red),
+              GestureDetector(
+                child: Text(
+                  "Iniciar sesion",
+                  style: TextStyle(color: Colors.red),
+                ),
+                onTap: () => Navigator.pushNamed(context, "loginEmail"),
               )
             ],
           ),
