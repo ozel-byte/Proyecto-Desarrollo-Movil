@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -12,7 +14,12 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final databaseReference = FirebaseDatabase.instance.ref("personas");
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
+  late String name;
+  late String email;
+  late String img;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -52,7 +59,13 @@ class _LoginState extends State<Login> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _signInWidthGoogle().then((r) {
+                      if (r != null) {
+                        print("entro papi");
+                      }
+                    });
+                  },
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(EdgeInsets.symmetric(
                           horizontal: size.height * 0.09, vertical: 10)),
@@ -162,5 +175,47 @@ class _LoginState extends State<Login> {
         ],
       ),
     );
+  }
+
+  _signInWidthGoogle() async {
+    final googleSignInAccount = await _googleSignIn.signIn();
+
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount!.authentication;
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+    final UserCredential authResult =
+        await _auth.signInWithCredential(credential);
+    final User user = authResult.user!;
+
+    if (user != null) {
+      // Checking if email and name is null
+      assert(user.email != null);
+      assert(user.displayName != null);
+      assert(user.photoURL != null);
+
+      name = user.displayName!;
+      email = user.email!;
+      img = user.photoURL!;
+
+      // Only taking the first part of the name, i.e., First Name
+      if (name.contains(" ")) {
+        name = name.substring(0, name.indexOf(" "));
+      }
+
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
+
+      final User currentUser = _auth.currentUser!;
+      assert(user.uid == currentUser.uid);
+
+      print('signInWithGoogle succeeded: $user');
+
+      return '$user';
+    }
+
+    return null;
   }
 }
