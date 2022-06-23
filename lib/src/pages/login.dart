@@ -54,13 +54,14 @@ class _LoginState extends State<Login> {
                   onPressed: () {
                     _signInWidthGoogle().then((r) {
                       if (r != null) {
-                        print("entro papi");
+                        print("entr");
                       }
                     });
                   },
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(EdgeInsets.symmetric(
-                          horizontal: size.height * 0.09, vertical: 10)),
+                          horizontal: size.height * 0.09,
+                          vertical: size.height * 0.015)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20))),
                       backgroundColor:
@@ -81,7 +82,8 @@ class _LoginState extends State<Login> {
                   onPressed: () {},
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(EdgeInsets.symmetric(
-                          horizontal: size.height * 0.08, vertical: 10)),
+                          horizontal: size.height * 0.08,
+                          vertical: size.height * 0.015)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           side: BorderSide(color: Color(0xff65676F)),
                           borderRadius: BorderRadius.circular(20))),
@@ -109,7 +111,8 @@ class _LoginState extends State<Login> {
                   },
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(EdgeInsets.symmetric(
-                          horizontal: size.height * 0.085, vertical: 10)),
+                          horizontal: size.height * 0.085,
+                          vertical: size.height * 0.015)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           side: BorderSide(color: Color(0xff65676F)),
                           borderRadius: BorderRadius.circular(20)))),
