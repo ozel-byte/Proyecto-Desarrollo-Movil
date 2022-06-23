@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyectocorte3/src/pages/login.dart';
+import 'package:proyectocorte3/src/pages/login_email.dart';
 import 'package:proyectocorte3/src/pages/signup.dart';
 
 class RoutePage extends StatelessWidget {
@@ -10,7 +11,7 @@ class RoutePage extends StatelessWidget {
     return MaterialApp(
       title: 'Material App',
       debugShowCheckedModeBanner: false,
-      routes: {"/": (_) => Login(), "signup": (context) => signup()},
+      routes: {"/": (_) => Login(), "signup": (context) => signup(), "loginEmail":(_) => LoginEmail()},
     );
   }
 }

@@ -27,14 +27,6 @@ class _LoginState extends State<Login> {
       body: Column(
         children: [logo(size), signIn(size, context), signUp(size)],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // print("object");
-          // databaseReference
-          //     .set({"title": "ozel", "description": "hola soy german"});
-        },
-        child: Icon(Icons.add),
-      ),
     );
   }
 
@@ -163,9 +155,12 @@ class _LoginState extends State<Login> {
               SizedBox(
                 width: 10,
               ),
-              Text(
-                "Iniciar sesion",
-                style: TextStyle(color: Colors.red),
+              GestureDetector(
+                child: Text(
+                  "Iniciar sesion",
+                  style: TextStyle(color: Colors.red),
+                ),
+                onTap: () => Navigator.pushNamed(context, "loginEmail"),
               )
             ],
           ),
