@@ -68,8 +68,8 @@ class _signupState extends State<signup> {
       key: _formKey,
       child: Column(
         children: [
-          etiquetaTexto("Crea una cuenta para empezar a usar la app", 15.0,
-              FontWeight.bold, Colors.black54),
+          etiquetaTexto("Crea una cuenta para empezar a usar la app",
+              width * 0.043, FontWeight.bold, Colors.black54),
           SizedBox(
             height: height * 0.058,
           ),
@@ -92,7 +92,7 @@ class _signupState extends State<signup> {
             padding: EdgeInsets.only(left: width * 0.05),
             child: etiquetaTexto(
                 "La contraseña debe contener caracteres, números y símbolos\ncon un minimo de 6 caracteres.",
-                12.0,
+                width * 0.029,
                 FontWeight.normal,
                 Colors.black26),
           ),
@@ -119,10 +119,12 @@ class _signupState extends State<signup> {
 
   Widget campoNombre() {
     return TextFormField(
+      style: TextStyle(fontSize: width * 0.043),
       validator: (value) {},
       decoration: InputDecoration(
           hintText: 'Nombre completo',
           hintStyle: TextStyle(color: Colors.black26),
+          contentPadding: EdgeInsets.symmetric(horizontal: 10),
           border: OutlineInputBorder(),
           errorBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red, width: width * 0.015))),
@@ -131,10 +133,12 @@ class _signupState extends State<signup> {
 
   Widget campoCorreo() {
     return TextFormField(
+      style: TextStyle(fontSize: width * 0.043),
       validator: (value) {},
       decoration: InputDecoration(
           hintText: 'Direccion de correo',
           hintStyle: TextStyle(color: Colors.black26),
+          contentPadding: EdgeInsets.symmetric(horizontal: 10),
           border: OutlineInputBorder(),
           errorBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red, width: width * 0.015))),
@@ -143,10 +147,12 @@ class _signupState extends State<signup> {
 
   Widget campoPassword() {
     return TextFormField(
+      style: TextStyle(fontSize: width * 0.043),
       validator: (value) {},
       decoration: InputDecoration(
           hintText: 'Contraseña',
           hintStyle: TextStyle(color: Colors.black26),
+          contentPadding: EdgeInsets.symmetric(horizontal: 10),
           border: OutlineInputBorder(),
           errorBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red, width: width * 0.015))),
@@ -161,7 +167,7 @@ class _signupState extends State<signup> {
         },
         style: TextButton.styleFrom(
           padding: EdgeInsets.symmetric(
-              horizontal: width * 0.3, vertical: width * 0.03),
+              horizontal: width * 0.3, vertical: height * 0.01),
           primary: Colors.white,
           backgroundColor: Colors.green,
           elevation: 3,
@@ -170,7 +176,7 @@ class _signupState extends State<signup> {
         ),
         child: Text(
           "Crear Cuenta",
-          style: TextStyle(fontSize: 18),
+          style: TextStyle(fontSize: width * 0.04),
         ));
   }
 
@@ -180,7 +186,8 @@ class _signupState extends State<signup> {
       children: [
         Text(
           texto,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+          style:
+              TextStyle(fontWeight: FontWeight.bold, fontSize: width * 0.043),
         )
       ],
     );
@@ -201,14 +208,14 @@ class _signupState extends State<signup> {
 
   Widget terminosCondiciones() {
     return Container(
-      width: width * 0.73,
+      width: width * 0.7,
       alignment: Alignment.centerLeft,
       child: msjTerminosCondiciones(),
     );
   }
 
   Widget tienesCuenta() {
-    double fontSize = 15.0;
+    double fontSize = width * 0.043;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -237,10 +244,27 @@ class _signupState extends State<signup> {
   }
 
   Widget msjTerminosCondiciones() {
-    double fontSize = 13.0;
-    return Column(
-      children: [
-        Row(
+    double fontSize = width * 0.04;
+    List<TextSpan> textSpands = <TextSpan>[
+      TextSpan(
+          text: 'Al registrarme, acepto los ',
+          style: TextStyle(color: Colors.black)),
+      TextSpan(
+          text: 'términos y condiciones ', style: TextStyle(color: Colors.red)),
+      TextSpan(text: 'y la ', style: TextStyle(color: Colors.black)),
+      TextSpan(
+          text: 'politica de privacidad ', style: TextStyle(color: Colors.red)),
+    ];
+    return RichText(
+      text: TextSpan(
+        style: TextStyle(color: Colors.black, fontSize: fontSize),
+        children: textSpands,
+      ),
+    );
+  }
+}
+
+/* Row(
           children: [
             etiquetaTexto("Al registrarme, acepto los ", fontSize,
                 FontWeight.normal, Colors.black),
@@ -254,8 +278,5 @@ class _signupState extends State<signup> {
             etiquetaTexto("politica de privacidad ", fontSize,
                 FontWeight.normal, Colors.red),
           ],
-        )
-      ],
-    );
-  }
-}
+        ) */
+
