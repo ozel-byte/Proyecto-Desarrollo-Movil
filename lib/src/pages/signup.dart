@@ -66,53 +66,57 @@ class _signupState extends State<signup> {
   Widget form() {
     return Form(
       key: _formKey,
-      child: Column(
-        children: [
-          etiquetaTexto("Crea una cuenta para empezar a usar la app",
-              width * 0.043, FontWeight.bold, Colors.black54),
-          SizedBox(
-            height: height * 0.058,
-          ),
-          etiquetaIzquierda("Nombre"),
-          campoNombre(),
-          SizedBox(
-            height: height * 0.04,
-          ),
-          etiquetaIzquierda("Correo electrónico"),
-          campoCorreo(),
-          SizedBox(
-            height: height * 0.04,
-          ),
-          etiquetaIzquierda("Contraseña"),
-          campoPassword(),
-          SizedBox(
-            height: height * 0.015,
-          ),
-          Container(
-            padding: EdgeInsets.only(left: width * 0.05),
-            child: etiquetaTexto(
-                "La contraseña debe contener caracteres, números y símbolos\ncon un minimo de 6 caracteres.",
-                width * 0.029,
-                FontWeight.normal,
-                Colors.black26),
-          ),
-          SizedBox(
-            height: height * 0.015,
-          ),
-          Row(
-            children: [
-              checkBox(),
-              terminosCondiciones(),
-            ],
-          ),
-          SizedBox(
-            height: height * 0.06,
-          ),
-          botonCrearCuenta(),
-          Center(
-            child: tienesCuenta(),
-          )
-        ],
+      child: SizedBox(
+        height: height * 0.85,
+        child: Column(
+          children: [
+            etiquetaTexto("Crea una cuenta para empezar a usar la app",
+                width * 0.043, FontWeight.bold, Colors.black54),
+            SizedBox(
+              height: height * 0.058,
+            ),
+            etiquetaIzquierda("Nombre"),
+            campoNombre(),
+            SizedBox(
+              height: height * 0.04,
+            ),
+            etiquetaIzquierda("Correo electrónico"),
+            campoCorreo(),
+            SizedBox(
+              height: height * 0.04,
+            ),
+            etiquetaIzquierda("Contraseña"),
+            campoPassword(),
+            SizedBox(
+              height: height * 0.015,
+            ),
+            Container(
+              padding: EdgeInsets.only(left: width * 0.05),
+              child: etiquetaTexto(
+                  "La contraseña debe contener caracteres, números y símbolos\ncon un minimo de 6 caracteres.",
+                  width * 0.029,
+                  FontWeight.normal,
+                  Colors.black26),
+            ),
+            SizedBox(
+              height: height * 0.015,
+            ),
+            Row(
+              children: [
+                checkBox(),
+                terminosCondiciones(),
+              ],
+            ),
+            SizedBox(
+              height: height * 0.06,
+            ),
+            botonCrearCuenta(),
+            Spacer(),
+            Center(
+              child: tienesCuenta(),
+            )
+          ],
+        ),
       ),
     );
   }
