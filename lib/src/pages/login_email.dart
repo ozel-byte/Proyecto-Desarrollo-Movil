@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:proyectocorte3/src/pages/forgot_pass.dart';
 
 class LoginEmail extends StatefulWidget {
   LoginEmail({Key? key}) : super(key: key);
@@ -18,10 +20,7 @@ class _LoginEmailState extends State<LoginEmail> {
     width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        title: titulo(),
-        backgroundColor: Colors.deepPurple
-      ),
+      appBar: AppBar(title: titulo(), backgroundColor: Colors.deepPurple),
       body: SingleChildScrollView(child: formulario()),
     );
   }
@@ -34,10 +33,13 @@ class _LoginEmailState extends State<LoginEmail> {
   }
 
   Widget logo() {
-    return Image.asset(
-      'assets/B5.png',
-      fit: BoxFit.contain,
-      height: height / 15,
+    return Hero(
+      tag: "logo",
+      child: Image.asset(
+        'assets/B5.png',
+        fit: BoxFit.contain,
+        height: height / 15,
+      ),
     );
   }
 
@@ -63,35 +65,37 @@ class _LoginEmailState extends State<LoginEmail> {
             height: height * 0.058,
           ),
           etiquetInput("Correo electrónico"),
-          campoInput('Email Adress', 2  ),
+          campoInput('Email Adress', 2),
           SizedBox(
             height: height * 0.03,
           ),
           etiquetInput("Contraseña"),
           campoInput('Password', 1),
-          SizedBox( height: height *0.02,),
+          SizedBox(
+            height: height * 0.02,
+          ),
           GestureDetector(
             child: etiquetaTexto("¿Has olvidado tu contraseña?", 17.0,
-              FontWeight.bold, Colors.red, 2
-            ),
-            onTap: () => Navigator.pushNamed(context, "forgotPass"),
+                FontWeight.bold, Colors.red, 2),
+            onTap: () => Navigator.push(
+                context,
+                PageTransition(
+                    child: ForgotPassword(),
+                    type: PageTransitionType.bottomToTop)),
           ),
           SizedBox(height: height * 0.34),
           btnIngresar(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              etiquetaTexto("¿Todavía no tienes una cuenta?", 15.0, FontWeight.normal,
-                Colors.black, 1
-              ),
+              etiquetaTexto("¿Todavía no tienes una cuenta?", 15.0,
+                  FontWeight.normal, Colors.black, 1),
               TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, 'signup');
-                },
-                child: etiquetaTexto(
-                    "Regístrate", 15.0, FontWeight.bold, Colors.red, 1
-                  )
-              ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'signup');
+                  },
+                  child: etiquetaTexto(
+                      "Regístrate", 15.0, FontWeight.bold, Colors.red, 1)),
             ],
           )
         ],
@@ -101,7 +105,8 @@ class _LoginEmailState extends State<LoginEmail> {
 
   Widget etiquetaTexto(texto, fontSize, fontWeight, colors, posicion) {
     return Row(
-      mainAxisAlignment: posicion == 1 ? MainAxisAlignment.start : MainAxisAlignment.end,
+      mainAxisAlignment:
+          posicion == 1 ? MainAxisAlignment.start : MainAxisAlignment.end,
       children: [
         Text(
           texto,
@@ -130,7 +135,8 @@ class _LoginEmailState extends State<LoginEmail> {
           suffixIcon: bandera == 1 ? Icon(Icons.remove_red_eye) : SizedBox(),
           hintText: texto,
           hintStyle: TextStyle(color: Colors.black26),
-          border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0))),
           errorBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red, width: width * 0.015))),
     );
@@ -140,9 +146,8 @@ class _LoginEmailState extends State<LoginEmail> {
     return ElevatedButton(
         onPressed: null,
         style: TextButton.styleFrom(
-          padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.32, vertical: 10 
-          ),
+          padding:
+              EdgeInsets.symmetric(horizontal: size.width * 0.32, vertical: 15),
           primary: Colors.white,
           backgroundColor: Colors.green,
           elevation: 3,
@@ -154,5 +159,4 @@ class _LoginEmailState extends State<LoginEmail> {
           style: TextStyle(fontSize: 18, color: Colors.white),
         ));
   }
-
 }

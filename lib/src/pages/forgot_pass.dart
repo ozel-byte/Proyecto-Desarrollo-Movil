@@ -18,10 +18,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        title: titulo(),
-        backgroundColor: Colors.deepPurple
-      ),
+      appBar: AppBar(title: titulo(), backgroundColor: Colors.deepPurple),
       body: SingleChildScrollView(child: formulario()),
     );
   }
@@ -63,22 +60,24 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             height: height * 0.058,
           ),
           etiquetInput("Correo electrónico"),
-          campoInput('Dirección de correo', 2  ),
-
-          SizedBox( 
-             height: height * 0.02,
+          campoInput('Dirección de correo', 2),
+          SizedBox(
+            height: height * 0.02,
           ),
-          etiquetaParrafo("Ingrese su correo electrónico registrado y le enviaremos un correo electrónico que contiene un enlace para restablecer su contraseña", 13.6,
-              FontWeight.normal, Colors.grey, 1),
+          etiquetaParrafo(
+              "Ingrese su correo electrónico registrado y le enviaremos un correo electrónico que contiene un enlace para restablecer su contraseña",
+              13.6,
+              FontWeight.normal,
+              Colors.grey,
+              1),
           SizedBox(
             height: height * 0.03,
           ),
-
-          SizedBox( height: height *0.10,),
-          
+          SizedBox(
+            height: height * 0.10,
+          ),
           SizedBox(height: height * 0.34),
           btnEnviarSolicitud(),
-          
         ],
       ),
     );
@@ -86,7 +85,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   Widget etiquetaTexto(texto, fontSize, fontWeight, colors, posicion) {
     return Row(
-      mainAxisAlignment: posicion == 1 ? MainAxisAlignment.start : MainAxisAlignment.end,
+      mainAxisAlignment:
+          posicion == 1 ? MainAxisAlignment.start : MainAxisAlignment.end,
       children: [
         Text(
           texto,
@@ -96,16 +96,17 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       ],
     );
   }
-   Widget etiquetaParrafo(texto, fontSize, fontWeight, colors, posicion) {
+
+  Widget etiquetaParrafo(texto, fontSize, fontWeight, colors, posicion) {
     return Row(
-      mainAxisAlignment: posicion == 1 ? MainAxisAlignment.start : MainAxisAlignment.end,
+      mainAxisAlignment:
+          posicion == 1 ? MainAxisAlignment.start : MainAxisAlignment.end,
       children: [
         SizedBox(
           width: size.width * 0.86,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 13),
             child: Text(
-              
               texto,
               textAlign: TextAlign.justify,
               style: TextStyle(
@@ -135,7 +136,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           suffixIcon: bandera == 1 ? Icon(Icons.remove_red_eye) : SizedBox(),
           hintText: texto,
           hintStyle: TextStyle(color: Colors.black26),
-          border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0))),
           errorBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red, width: width * 0.015))),
     );
@@ -144,19 +146,17 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget btnEnviarSolicitud() {
     return ElevatedButton(
         onPressed: () {
-                    Navigator.pushNamed(context, 'recoverPass');
-                  },
+          Navigator.pushNamed(context, 'recoverPass');
+        },
         style: TextButton.styleFrom(
-          padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.25, vertical: 10
-          ),
+          padding:
+              EdgeInsets.symmetric(horizontal: size.width * 0.25, vertical: 15),
           primary: Colors.white,
           backgroundColor: Colors.green,
           elevation: 3,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
         ),
-        
         child: Text(
           "Enviar Solicitud",
           style: TextStyle(fontSize: 19, color: Colors.white),
