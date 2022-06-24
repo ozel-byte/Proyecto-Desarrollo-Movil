@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class LoginEmail extends StatefulWidget {
-  LoginEmail({Key? key}) : super(key: key);
+class ForgotPassword extends StatefulWidget {
+  ForgotPassword({Key? key}) : super(key: key);
 
   @override
-  State<LoginEmail> createState() => _LoginEmailState();
+  State<ForgotPassword> createState() => _ForgotPasswordState();
 }
 
-class _LoginEmailState extends State<LoginEmail> {
+class _ForgotPasswordState extends State<ForgotPassword> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   var height, width, size;
 
@@ -29,7 +29,7 @@ class _LoginEmailState extends State<LoginEmail> {
   Widget titulo() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [const Text('Iniciar sesión'), logo()],
+      children: [const Text('Recuperar contraseña'), logo()],
     );
   }
 
@@ -57,43 +57,28 @@ class _LoginEmailState extends State<LoginEmail> {
       key: _formKey,
       child: Column(
         children: [
-          etiquetaTexto("Inicia esión con tu cuenta para continuar", 17.0,
+          etiquetaTexto("Ingresa tu email para restablecer tu contraseña", 15.7,
               FontWeight.bold, Colors.black54, 1),
           SizedBox(
             height: height * 0.058,
           ),
           etiquetInput("Correo electrónico"),
-          campoInput('Email Adress', 2  ),
+          campoInput('Dirección de correo', 2  ),
+
+          SizedBox( 
+             height: height * 0.02,
+          ),
+          etiquetaParrafo("Ingrese su correo electrónico registrado y le enviaremos un correo electrónico que contiene un enlace para restablecer su contraseña", 13.6,
+              FontWeight.normal, Colors.grey, 1),
           SizedBox(
             height: height * 0.03,
           ),
-          etiquetInput("Contraseña"),
-          campoInput('Password', 1),
-          SizedBox( height: height *0.02,),
-          GestureDetector(
-            child: etiquetaTexto("¿Has olvidado tu contraseña?", 17.0,
-              FontWeight.bold, Colors.red, 2
-            ),
-            onTap: () => Navigator.pushNamed(context, "forgotPass"),
-          ),
+
+          SizedBox( height: height *0.10,),
+          
           SizedBox(height: height * 0.34),
-          btnIngresar(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              etiquetaTexto("¿Todavía no tienes una cuenta?", 15.0, FontWeight.normal,
-                Colors.black, 1
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, 'signup');
-                },
-                child: etiquetaTexto(
-                    "Regístrate", 15.0, FontWeight.bold, Colors.red, 1
-                  )
-              ),
-            ],
-          )
+          btnEnviarSolicitud(),
+          
         ],
       ),
     );
@@ -107,6 +92,26 @@ class _LoginEmailState extends State<LoginEmail> {
           texto,
           style: TextStyle(
               fontWeight: fontWeight, fontSize: fontSize, color: colors),
+        )
+      ],
+    );
+  }
+   Widget etiquetaParrafo(texto, fontSize, fontWeight, colors, posicion) {
+    return Row(
+      mainAxisAlignment: posicion == 1 ? MainAxisAlignment.start : MainAxisAlignment.end,
+      children: [
+        SizedBox(
+          width: size.width * 0.86,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 13),
+            child: Text(
+              
+              texto,
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                  fontWeight: fontWeight, fontSize: fontSize, color: colors),
+            ),
+          ),
         )
       ],
     );
@@ -136,12 +141,14 @@ class _LoginEmailState extends State<LoginEmail> {
     );
   }
 
-  Widget btnIngresar() {
+  Widget btnEnviarSolicitud() {
     return ElevatedButton(
-        onPressed: null,
+        onPressed: () {
+                    Navigator.pushNamed(context, 'recoverPass');
+                  },
         style: TextButton.styleFrom(
           padding: EdgeInsets.symmetric(
-            horizontal: width * 0.32, vertical: width * 0.045 
+            horizontal: size.height * 0.08, vertical: 10
           ),
           primary: Colors.white,
           backgroundColor: Colors.green,
@@ -149,10 +156,10 @@ class _LoginEmailState extends State<LoginEmail> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
         ),
+        
         child: Text(
-          "Ingresar",
-          style: TextStyle(fontSize: 18, color: Colors.white),
+          "Enviar Solicitud",
+          style: TextStyle(fontSize: 19, color: Colors.white),
         ));
   }
-
 }
