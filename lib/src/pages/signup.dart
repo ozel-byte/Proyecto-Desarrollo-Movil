@@ -33,7 +33,21 @@ class _signupState extends State<signup> {
         title: titulo(),
         backgroundColor: Colors.deepPurple,
       ),
-      body: SingleChildScrollView(child: formulario()),
+      body: DefaultTextStyle(
+        style: Theme.of(context).textTheme.bodyText2!,
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints viewportConstraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
+                ),
+                child: formulario(),
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 
@@ -45,10 +59,13 @@ class _signupState extends State<signup> {
   }
 
   Widget logo() {
-    return Image.asset(
-      'assets/B5.png',
-      fit: BoxFit.contain,
-      height: height / 15,
+    return Hero(
+      tag: "logo",
+      child: Image.asset(
+        'assets/B5.png',
+        fit: BoxFit.contain,
+        height: height / 15,
+      ),
     );
   }
 
@@ -67,7 +84,7 @@ class _signupState extends State<signup> {
     return Form(
       key: _formKey,
       child: SizedBox(
-        height: height * 0.85,
+        height: height * 0.8,
         child: Column(
           children: [
             etiquetaTexto("Crea una cuenta para empezar a usar la app",
@@ -86,7 +103,7 @@ class _signupState extends State<signup> {
               height: height * 0.04,
             ),
             etiquetaIzquierda("Contraseña"),
-            campoPassword(),
+            campoPassword(1),
             SizedBox(
               height: height * 0.015,
             ),
@@ -114,6 +131,9 @@ class _signupState extends State<signup> {
             Spacer(),
             Center(
               child: tienesCuenta(),
+            ),
+            SizedBox(
+              height: 20,
             )
           ],
         ),
@@ -123,13 +143,14 @@ class _signupState extends State<signup> {
 
   Widget campoNombre() {
     return TextFormField(
-      style: TextStyle(fontSize: width * 0.043),
+      //style: TextStyle(fontSize: width * 0.043),
       validator: (value) {},
       decoration: InputDecoration(
           hintText: 'Nombre completo',
           hintStyle: TextStyle(color: Colors.black26),
-          contentPadding: EdgeInsets.symmetric(horizontal: 10),
-          border: OutlineInputBorder(),
+          //contentPadding: EdgeInsets.symmetric(horizontal: 10),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0))),
           errorBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red, width: width * 0.015))),
     );
@@ -137,27 +158,30 @@ class _signupState extends State<signup> {
 
   Widget campoCorreo() {
     return TextFormField(
-      style: TextStyle(fontSize: width * 0.043),
+      //style: TextStyle(fontSize: width * 0.043),
       validator: (value) {},
       decoration: InputDecoration(
           hintText: 'Direccion de correo',
           hintStyle: TextStyle(color: Colors.black26),
-          contentPadding: EdgeInsets.symmetric(horizontal: 10),
-          border: OutlineInputBorder(),
+          //contentPadding: EdgeInsets.symmetric(horizontal: 10),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0))),
           errorBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red, width: width * 0.015))),
     );
   }
 
-  Widget campoPassword() {
+  Widget campoPassword(bandera) {
     return TextFormField(
-      style: TextStyle(fontSize: width * 0.043),
+      //style: TextStyle(fontSize: width * 0.043),
       validator: (value) {},
       decoration: InputDecoration(
+          suffixIcon: bandera == 1 ? Icon(Icons.remove_red_eye) : SizedBox(),
           hintText: 'Contraseña',
           hintStyle: TextStyle(color: Colors.black26),
-          contentPadding: EdgeInsets.symmetric(horizontal: 10),
-          border: OutlineInputBorder(),
+          //contentPadding: EdgeInsets.symmetric(horizontal: 10),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0))),
           errorBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red, width: width * 0.015))),
     );
@@ -171,7 +195,7 @@ class _signupState extends State<signup> {
         },
         style: TextButton.styleFrom(
           padding: EdgeInsets.symmetric(
-              horizontal: size.width * 0.30, vertical: 10),
+              horizontal: size.width * 0.30, vertical: size.height * 0.02),
           primary: Colors.white,
           backgroundColor: Colors.green,
           elevation: 3,
@@ -227,7 +251,7 @@ class _signupState extends State<signup> {
             Colors.black),
         TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/');
+              Navigator.pushNamed(context, 'loginEmail');
             },
             child: etiquetaTexto(
                 "Inicia sesión ", fontSize, FontWeight.bold, Colors.red)),

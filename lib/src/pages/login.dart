@@ -1,9 +1,14 @@
 //import 'dart:js';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:proyectocorte3/src/pages/login_email.dart';
+import 'package:proyectocorte3/src/pages/signup.dart';
+import 'package:concentric_transition/concentric_transition.dart';
+import 'package:page_transition/page_transition.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -12,16 +17,48 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   final databaseReference = FirebaseDatabase.instance.ref("personas");
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  late AnimationController _animationController;
 
   late String name;
   late String email;
   late String img;
+
+  late Animation<double> movex;
+  late Animation<double> movey;
+  late Animation<double> opacity;
+
+  @override
+  void initState() {
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 2));
+
+    movex = Tween(begin: 0.0, end: 100.0).animate(CurvedAnimation(
+        parent: _animationController, curve: const Interval(0.0, 0.25)));
+
+    opacity = Tween(begin: 0.1, end: 1.0).animate(CurvedAnimation(
+        parent: _animationController,
+        curve: const Interval(0.25, 0.75, curve: Curves.easeInCubic)));
+
+    movey = Tween(begin: -100.0, end: 0.0).animate(CurvedAnimation(
+        parent: _animationController,
+        curve: const Interval(0.0, 1, curve: Curves.easeInOutCubicEmphasized)));
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    _animationController.forward();
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Column(
@@ -31,42 +68,62 @@ class _LoginState extends State<Login> {
   }
 
   Widget logo(Size size) {
-    return Container(
+    return SizedBox(
       width: size.width,
       height: size.height * 0.4,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.fitWidth, image: AssetImage("assets/B5.png"))),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Hero(
+              tag: "logo",
+              child: Builder(builder: (context) {
+                return AnimatedBuilder(
+                  animation: _animationController,
+                  builder: (_, child) {
+                    return Transform.translate(
+                      offset: Offset(0, movey.value),
+                      child: Opacity(
+                        opacity: opacity.value,
+                        child: Image(
+                            height: size.height * 0.3,
+                            image: const AssetImage("assets/B5.png")),
+                      ),
+                    );
+                  },
+                );
+              })),
+        ],
+      ),
     );
   }
 
   Widget signIn(Size size, BuildContext context) {
-    return Container(
+    return SizedBox(
       width: size.width,
       height: size.height * 0.3,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton(
                   onPressed: () {
                     _signInWidthGoogle().then((r) {
                       if (r != null) {
-                        print("entr");
+                        print("entrando");
                       }
                     });
                   },
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(EdgeInsets.symmetric(
-                          horizontal: size.width * 0.24, vertical: 10)),
+                          horizontal: size.width * 0.2, vertical: 15)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20))),
                       backgroundColor:
-                          MaterialStateProperty.all(Color(0xff3069F5))),
+                          MaterialStateProperty.all(const Color(0xff3069F5))),
                   child: Row(
-                    children: [
+                    children: const [
                       Icon(
                         Icons.g_mobiledata_outlined,
                         color: Colors.white,
@@ -77,21 +134,22 @@ class _LoginState extends State<Login> {
                       ),
                     ],
                   )),
+              SizedBox(
+                height: size.height * 0.03,
+              ),
               TextButton(
                   onPressed: () {},
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(EdgeInsets.symmetric(
-                          horizontal: size.width * 0.20, vertical: 10
-                        )
-                      ),
+                          horizontal: size.height * 0.08, vertical: 15)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          side: BorderSide(color: Color(0xff65676F)),
+                          side: const BorderSide(color: Color(0xff65676F)),
                           borderRadius: BorderRadius.circular(20))),
                       backgroundColor:
-                          MaterialStateProperty.all(Color(0xff314FA4))),
+                          MaterialStateProperty.all(const Color(0xff314FA4))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                    children: const [
                       Icon(
                         Icons.facebook,
                         color: Colors.white,
@@ -105,18 +163,26 @@ class _LoginState extends State<Login> {
                       ),
                     ],
                   )),
+              SizedBox(
+                height: size.height * 0.04,
+              ),
               TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, 'signup');
+                    //Navigator.pushNamed(context, 'signup');
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: signup(),
+                            type: PageTransitionType.bottomToTop));
                   },
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(EdgeInsets.symmetric(
-                          horizontal: size.width * 0.20, vertical: 10)),
+                          horizontal: size.height * 0.085, vertical: 15)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          side: BorderSide(color: Color(0xff65676F)),
+                          side: const BorderSide(color: Color(0xff65676F)),
                           borderRadius: BorderRadius.circular(20)))),
                   child: Row(
-                    children: [
+                    children: const [
                       Icon(Icons.mail, color: Color(0xff65676F)),
                       SizedBox(
                         width: 10,
@@ -135,39 +201,49 @@ class _LoginState extends State<Login> {
   }
 
   Widget signUp(Size size) {
-    return Container(
+    return SizedBox(
       width: size.width,
       height: size.height * 0.3,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
+          SizedBox(
+            height: size.height * 0.1,
+          ),
+          const Text(
             "Entrar como invitado",
             style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: size.height * 0.05),
-          Text(
+          SizedBox(
+            height: size.height * 0.05,
+          ),
+          const Text(
             "Entrar como vendedor",
             style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
           ),
-          Spacer(),
+          const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("¿Ya tienes una cuenta?"),
-              SizedBox(
+              const Text("¿Ya tienes una cuenta?"),
+              const SizedBox(
                 width: 10,
               ),
               GestureDetector(
-                child: Text(
+                child: const Text(
                   "Iniciar sesion",
                   style: TextStyle(color: Colors.red),
                 ),
-                onTap: () => Navigator.pushNamed(context, "loginEmail"),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: LoginEmail(),
+                          type: PageTransitionType.bottomToTop));
+                },
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           )
         ],
