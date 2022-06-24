@@ -145,7 +145,7 @@ class _RecoverPassState extends State<RecoverPass> {
         onPressed: null,
         style: TextButton.styleFrom(
           padding: EdgeInsets.symmetric(
-            horizontal: size.height * 0.08, vertical: 10
+            horizontal: size.width * 0.18, vertical: 10
           ),
           primary: Colors.white,
           backgroundColor: Colors.green,

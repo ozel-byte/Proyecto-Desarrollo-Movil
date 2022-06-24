@@ -171,7 +171,7 @@ class _signupState extends State<signup> {
         },
         style: TextButton.styleFrom(
           padding: EdgeInsets.symmetric(
-              horizontal: width * 0.3, vertical: height * 0.01),
+              horizontal: size.width * 0.30, vertical: 10),
           primary: Colors.white,
           backgroundColor: Colors.green,
           elevation: 3,

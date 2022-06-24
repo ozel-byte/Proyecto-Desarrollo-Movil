@@ -141,7 +141,7 @@ class _LoginEmailState extends State<LoginEmail> {
         onPressed: null,
         style: TextButton.styleFrom(
           padding: EdgeInsets.symmetric(
-            horizontal: width * 0.32, vertical: width * 0.045 
+            horizontal: size.width * 0.32, vertical: 10 
           ),
           primary: Colors.white,
           backgroundColor: Colors.green,

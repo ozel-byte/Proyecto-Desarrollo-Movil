@@ -60,8 +60,7 @@ class _LoginState extends State<Login> {
                   },
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(EdgeInsets.symmetric(
-                          horizontal: size.height * 0.09,
-                          vertical: size.height * 0.015)),
+                          horizontal: size.width * 0.24, vertical: 10)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20))),
                       backgroundColor:
@@ -82,8 +81,9 @@ class _LoginState extends State<Login> {
                   onPressed: () {},
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(EdgeInsets.symmetric(
-                          horizontal: size.height * 0.08,
-                          vertical: size.height * 0.015)),
+                          horizontal: size.width * 0.20, vertical: 10
+                        )
+                      ),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           side: BorderSide(color: Color(0xff65676F)),
                           borderRadius: BorderRadius.circular(20))),
@@ -111,8 +111,7 @@ class _LoginState extends State<Login> {
                   },
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all(EdgeInsets.symmetric(
-                          horizontal: size.height * 0.085,
-                          vertical: size.height * 0.015)),
+                          horizontal: size.width * 0.20, vertical: 10)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           side: BorderSide(color: Color(0xff65676F)),
                           borderRadius: BorderRadius.circular(20)))),
@@ -146,6 +145,7 @@ class _LoginState extends State<Login> {
             "Entrar como invitado",
             style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
           ),
+          SizedBox(height: size.height * 0.05),
           Text(
             "Entrar como vendedor",
             style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
